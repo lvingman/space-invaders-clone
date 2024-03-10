@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dapdafc76a8nj"]
+
+[ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="1_qsiso"]
+[ext_resource type="Script" path="res://Scripts/WorldObjects/Player.cs" id="1_ss3xf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5njf5"]
+size = Vector2(38, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_170ng"]
+atlas = ExtResource("1_qsiso")
+region = Rect2(3, 49, 13, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a0w4q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_170ng")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ss3xf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5njf5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1.49012e-07, -5.96046e-08)
+scale = Vector2(2.92308, 3)
+sprite_frames = SubResource("SpriteFrames_a0w4q")
