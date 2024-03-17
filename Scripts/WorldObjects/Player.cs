@@ -1,5 +1,7 @@
+using CommunityToolkit.Mvvm.Messaging;
 using Godot;
 using System;
+using SpaceInvadersClone.Scripts;
 
 public partial class Player : CharacterBody2D
 {
@@ -9,9 +11,6 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-
-
-
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
@@ -28,4 +27,11 @@ public partial class Player : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+	
+	private void OnEnemyTimerTimeout()
+	{
+		StrongReferenceMessenger.Default.
+			Send<SYSMessages.InvadersAnimation>(new(true));
+	}
+
 }

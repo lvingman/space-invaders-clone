@@ -32,3 +32,8 @@ texture_filter = 1
 position = Vector2(1.49012e-07, -5.96046e-08)
 scale = Vector2(2.92308, 3)
 sprite_frames = SubResource("SpriteFrames_a0w4q")
+
+[node name="EnemyTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="EnemyTimer" to="." method="OnEnemyTimerTimeout"]
