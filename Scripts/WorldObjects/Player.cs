@@ -1,12 +1,26 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Godot;
 using System;
+using System.Collections.Generic;
 using SpaceInvadersClone.Scripts;
 
 public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
-
+	private int invadersLoop = 0;
+	public List<AudioStreamPlayer> InvadersMovement = new List<AudioStreamPlayer>();
+	
+	public override void _Ready()
+	{
+		base._Ready();
+		int i = 1;
+		while (GetNode($"EnemyProperties/Movement{i}") != null)
+		{
+			InvadersMovement.Add((AudioStreamPlayer)GetNode($"EnemyProperties/Movement{i}"));
+			i++;
+		}
+		
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -30,8 +44,16 @@ public partial class Player : CharacterBody2D
 	
 	private void OnEnemyTimerTimeout()
 	{
-		StrongReferenceMessenger.Default.
-			Send<SYSMessages.InvadersAnimation>(new(true));
+		StrongReferenceMessenger.Default.Send<SYSMessages.InvadersAnimation>(new(true));
+		InvadersMovement[invadersLoop].Play();
+		if (invadersLoop == 3)
+		{
+			invadersLoop = 0;
+		}
+		else
+		{
+			invadersLoop++;
+		}
 	}
 
 }
