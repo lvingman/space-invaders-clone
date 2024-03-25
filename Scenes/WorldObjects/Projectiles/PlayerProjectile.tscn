@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://i8vdku7edpw6"]
+
+[ext_resource type="Script" path="res://Scripts/WorldObjects/Projectiles.cs" id="1_t4hvx"]
+[ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="1_uc7t2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pniig"]
+size = Vector2(10, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyik3"]
+atlas = ExtResource("1_uc7t2")
+region = Rect2(55, 53, 1, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_15kn7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyik3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PlayerProjectile" type="Area2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_t4hvx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pniig")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(10.5, 10.5)
+sprite_frames = SubResource("SpriteFrames_15kn7")

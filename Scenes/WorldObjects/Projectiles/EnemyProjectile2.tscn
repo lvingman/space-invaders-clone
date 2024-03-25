@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bc7r6q82xgret"]
+
+[ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="1_2kmxd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pniig"]
+size = Vector2(30, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqp5g"]
+atlas = ExtResource("1_2kmxd")
+region = Rect2(21, 21, 3, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7n6w4"]
+atlas = ExtResource("1_2kmxd")
+region = Rect2(26, 21, 3, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0uqo"]
+atlas = ExtResource("1_2kmxd")
+region = Rect2(31, 21, 3, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33uwb"]
+atlas = ExtResource("1_2kmxd")
+region = Rect2(36, 21, 3, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_15kn7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqp5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7n6w4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0uqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33uwb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyProjectile2" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pniig")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(10.5, 10.5)
+sprite_frames = SubResource("SpriteFrames_15kn7")
+frame_progress = 0.723647
+speed_scale = 4.0

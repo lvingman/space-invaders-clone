@@ -6,6 +6,9 @@ using SpaceInvadersClone.Scripts;
 
 public partial class Player : CharacterBody2D
 {
+	public Timer ReloadTime { get; set; }
+	public AudioStreamPlayer ProjectileShotSFX { get; set; }
+	public AudioStreamPlayer DeathSFX { get; set; }
 	public const float Speed = 300.0f;
 	private int invadersLoop = 0;
 	public List<AudioStreamPlayer> InvadersMovement = new List<AudioStreamPlayer>();
@@ -19,7 +22,10 @@ public partial class Player : CharacterBody2D
 			InvadersMovement.Add((AudioStreamPlayer)GetNode($"EnemyProperties/Movement{i}"));
 			i++;
 		}
-		
+		ProjectileShotSFX = (AudioStreamPlayer)GetNode("PlayerSFXs/ProjectileShot");
+		DeathSFX = (AudioStreamPlayer)GetNode("PlayerSFXs/Death");
+		ReloadTime = (Timer)GetNode("ReloadTime");
+
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -40,6 +46,9 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		
+		//Checking for firing projectiles
+		PlayerFire();
 	}
 	
 	private void OnEnemyTimerTimeout()
@@ -53,6 +62,22 @@ public partial class Player : CharacterBody2D
 		else
 		{
 			invadersLoop++;
+		}
+	}
+
+	private void PlayerFire()
+	{
+		if (Input.IsActionJustPressed("fire"))
+		{
+			if (ReloadTime.TimeLeft == 0)
+			{
+				PackedScene projectile = ResourceLoader.Load("res://Scenes/WorldObjects/Projectiles/PlayerProjectile.tscn") as PackedScene;
+				Area2D instance = projectile.Instantiate<Area2D>();
+				instance.GlobalPosition = GlobalPosition + new Vector2(0,3);
+				GetTree().Root.GetNode("MainStage").AddChild(instance);
+				ProjectileShotSFX.Play();
+				ReloadTime.Start();
+			}
 		}
 	}
 
