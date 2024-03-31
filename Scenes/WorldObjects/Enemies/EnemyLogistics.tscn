@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2btrks7gad4l"]
+
+[ext_resource type="Script" path="res://Scripts/WorldObjects/Enemies/EnemyLogistics.cs" id="1_w7dry"]
+[ext_resource type="AudioStream" uid="uid://dxes38wddibrb" path="res://Assets/SFX/AlienMovement1.wav" id="2_nitki"]
+[ext_resource type="AudioStream" uid="uid://buv50gq3xxcou" path="res://Assets/SFX/alienMovement2.wav" id="3_uvnom"]
+[ext_resource type="AudioStream" uid="uid://bretok3p788wb" path="res://Assets/SFX/alienMovement3.wav" id="4_efpkf"]
+[ext_resource type="AudioStream" uid="uid://dvr4f8ghckygt" path="res://Assets/SFX/alienMovement4.wav" id="5_1fvg6"]
+
+[node name="EnemyLogistics" type="Node2D"]
+script = ExtResource("1_w7dry")
+
+[node name="EnemyTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Movement1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_nitki")
+
+[node name="Movement2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_uvnom")
+
+[node name="Movement3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_efpkf")
+
+[node name="Movement4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_1fvg6")
+
+[connection signal="timeout" from="EnemyTimer" to="." method="OnEnemyTimerTimeout"]

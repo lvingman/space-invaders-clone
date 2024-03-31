@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using CommunityToolkit.Mvvm.Messaging;
+using SpaceInvadersClone.Scripts;
 
 public partial class Projectiles : Area2D
 {
@@ -22,6 +24,17 @@ public partial class Projectiles : Area2D
 		else
 		{
 			GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + 10);
+		}
+	}
+
+	public void OnBodyEntered(Node2D body)
+	{
+		if (body is CharacterBody2D alien && alien.Name != "Player")
+		{
+			{
+				StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileHitsAlien>(new(alien.GetRid()));
+				QueueFree();
+			}
 		}
 	}
 	

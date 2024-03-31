@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0u3d06y40td6"]
+
+[ext_resource type="FontFile" uid="uid://d2g5un2a6gijm" path="res://Assets/Fonts/Pixel_NES.otf" id="1_giuam"]
+[ext_resource type="Script" path="res://Scripts/UI/HUD.cs" id="1_gxjto"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d2xsm"]
+font = ExtResource("1_giuam")
+font_size = 46
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gxjto")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 18.0
+offset_right = 371.0
+offset_bottom = 115.0
+text = "SCORE
+0"
+label_settings = SubResource("LabelSettings_d2xsm")
+horizontal_alignment = 1

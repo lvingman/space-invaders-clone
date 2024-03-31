@@ -1,11 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dapdafc76a8nj"]
+[gd_scene load_steps=8 format=3 uid="uid://dapdafc76a8nj"]
 
 [ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="1_qsiso"]
 [ext_resource type="Script" path="res://Scripts/WorldObjects/Player.cs" id="1_ss3xf"]
-[ext_resource type="AudioStream" uid="uid://dxes38wddibrb" path="res://Assets/SFX/AlienMovement1.wav" id="3_cpqe7"]
-[ext_resource type="AudioStream" uid="uid://buv50gq3xxcou" path="res://Assets/SFX/alienMovement2.wav" id="4_7k1q6"]
-[ext_resource type="AudioStream" uid="uid://bretok3p788wb" path="res://Assets/SFX/alienMovement3.wav" id="5_o0swf"]
-[ext_resource type="AudioStream" uid="uid://dvr4f8ghckygt" path="res://Assets/SFX/alienMovement4.wav" id="6_m0311"]
 [ext_resource type="AudioStream" uid="uid://c740ddo5t45n4" path="res://Assets/SFX/PlayerSFX/shoot.wav" id="7_18vye"]
 [ext_resource type="AudioStream" uid="uid://dwo6rbcmo62a0" path="res://Assets/SFX/PlayerSFX/death.wav" id="8_l8mdf"]
 
@@ -39,23 +35,6 @@ position = Vector2(1.49012e-07, -5.96046e-08)
 scale = Vector2(2.92308, 3)
 sprite_frames = SubResource("SpriteFrames_a0w4q")
 
-[node name="EnemyProperties" type="Node2D" parent="."]
-
-[node name="EnemyTimer" type="Timer" parent="EnemyProperties"]
-autostart = true
-
-[node name="Movement1" type="AudioStreamPlayer" parent="EnemyProperties"]
-stream = ExtResource("3_cpqe7")
-
-[node name="Movement2" type="AudioStreamPlayer" parent="EnemyProperties"]
-stream = ExtResource("4_7k1q6")
-
-[node name="Movement3" type="AudioStreamPlayer" parent="EnemyProperties"]
-stream = ExtResource("5_o0swf")
-
-[node name="Movement4" type="AudioStreamPlayer" parent="EnemyProperties"]
-stream = ExtResource("6_m0311")
-
 [node name="PlayerSFXs" type="Node2D" parent="."]
 
 [node name="ProjectileShot" type="AudioStreamPlayer" parent="PlayerSFXs"]
@@ -68,5 +47,3 @@ stream = ExtResource("8_l8mdf")
 process_callback = 0
 wait_time = 0.4
 one_shot = true
-
-[connection signal="timeout" from="EnemyProperties/EnemyTimer" to="." method="OnEnemyTimerTimeout"]
