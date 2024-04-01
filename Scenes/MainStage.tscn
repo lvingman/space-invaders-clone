@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2xt50f5av0mu"]
+[gd_scene load_steps=7 format=3 uid="uid://d2xt50f5av0mu"]
 
 [ext_resource type="PackedScene" uid="uid://b8necs38uyv8o" path="res://Scenes/WorldObjects/Enemies/Crab.tscn" id="1_q7vxc"]
 [ext_resource type="PackedScene" uid="uid://dapdafc76a8nj" path="res://Scenes/WorldObjects/Player.tscn" id="2_sh1dd"]
 [ext_resource type="PackedScene" uid="uid://b5gfc1abkbo7i" path="res://Scenes/WorldObjects/Enemies/Octopus.tscn" id="3_g4qgu"]
 [ext_resource type="PackedScene" uid="uid://btqlu518ki4k3" path="res://Scenes/WorldObjects/Enemies/Squid.tscn" id="4_4gpy8"]
 [ext_resource type="PackedScene" uid="uid://b2btrks7gad4l" path="res://Scenes/WorldObjects/Enemies/EnemyLogistics.tscn" id="5_2pdpn"]
+[ext_resource type="PackedScene" uid="uid://b0u3d06y40td6" path="res://Scenes/UI/HUD.tscn" id="6_vviqn"]
 
 [node name="MainStage" type="Node2D"]
 
@@ -140,3 +141,9 @@ position = Vector2(256, 184)
 [node name="Logistics" type="Node2D" parent="."]
 
 [node name="EnemyLogistics" parent="Logistics" instance=ExtResource("5_2pdpn")]
+
+[node name="Hud" parent="Logistics" instance=ExtResource("6_vviqn")]
+offset_left = -34.0
+offset_top = 11.0
+offset_right = -34.0
+offset_bottom = 11.0

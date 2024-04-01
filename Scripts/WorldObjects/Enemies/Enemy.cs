@@ -3,7 +3,7 @@ using System;
 using CommunityToolkit.Mvvm.Messaging;
 using SpaceInvadersClone.Scripts;
 
-public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAnimation>, IRecipient<SYSMessages.ProjectileHitsAlien>, IRecipient<SYSMessages.EnemyTouchesBorder>
+public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAnimation>, IRecipient<SYSMessages.ProjectileHitsAlien>
 {
 	//MVVM FUNCTIONS
 	public override void _EnterTree()   //Lets to listen messages from IRecipient and the type of message emmited
@@ -20,9 +20,6 @@ public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAn
 	}
 
 
-
-	public static bool goingRight = true;
-	public const float Speed = 300.0f;
 	
 	[Export]
 	public static float animSpeed = 0.5f;
@@ -40,30 +37,7 @@ public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAn
 
 	}
 
-	private void OnMovementAnimFrameChanged()
-	{
-		if (goingRight)
-		{
-			if (GetViewportRect().Size.X - GlobalPosition.X < 50)
-			{
-				StrongReferenceMessenger.Default.Send<SYSMessages.EnemyTouchesBorder>(new(false));
-				return;
-			}
-			GlobalPosition = new Vector2(GlobalPosition.X + 10, GlobalPosition.Y);
-			
-
-		}
-		else if (!goingRight)
-		{
-			if (GlobalPosition.X < 50)
-			{
-				StrongReferenceMessenger.Default.Send<SYSMessages.EnemyTouchesBorder>(new(true));
-				return;
-			}
-			GlobalPosition = new Vector2(GlobalPosition.X - 10, GlobalPosition.Y);
-		}
-	}
-
+	
 	
 	
 
@@ -95,11 +69,7 @@ public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAn
 		}
 	}
 
-	public void Receive(SYSMessages.EnemyTouchesBorder message)
-	{
-		GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + 10);
-		goingRight = message.value;
-	}
+
 }
 
 

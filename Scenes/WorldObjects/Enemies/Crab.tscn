@@ -43,5 +43,3 @@ sprite_frames = SubResource("SpriteFrames_dmtfd")
 animation = &"movement"
 frame_progress = 0.571628
 speed_scale = 0.0
-
-[connection signal="frame_changed" from="MovementAnim" to="." method="OnMovementAnimFrameChanged"]

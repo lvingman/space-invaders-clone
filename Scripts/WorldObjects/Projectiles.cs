@@ -31,10 +31,22 @@ public partial class Projectiles : Area2D
 	{
 		if (body is CharacterBody2D alien && alien.Name != "Player")
 		{
+			if (alien.Name.ToString().Contains("Octopus"))
 			{
-				StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileHitsAlien>(new(alien.GetRid()));
+				StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileHitsAlien>(new(alien.GetRid(), 10));
 				QueueFree();
 			}
+			else if (alien.Name.ToString().Contains("Crab"))
+			{
+				StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileHitsAlien>(new(alien.GetRid(), 20));
+				QueueFree();
+			}
+			else if (alien.Name.ToString().Contains("Squid"))
+			{
+				StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileHitsAlien>(new(alien.GetRid(), 30));
+				QueueFree();
+			}
+			
 		}
 	}
 	

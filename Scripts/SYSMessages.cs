@@ -5,7 +5,7 @@ public class SYSMessages
 {
     public record InvadersAnimation(bool value);
 
-    public record ProjectileHitsAlien(Rid enemyId);
+    public record ProjectileHitsAlien(Rid enemyId, int points);
 
     public record EnemyTouchesBorder(bool value);
 }

@@ -40,5 +40,3 @@ position = Vector2(-2.38419e-06, 1.43051e-06)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_d3ssf")
 speed_scale = 0.0
-
-[connection signal="frame_changed" from="MovementAnim" to="." method="OnMovementAnimFrameChanged"]
