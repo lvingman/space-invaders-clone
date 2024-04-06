@@ -134,7 +134,7 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
     {
         if (stageCleared == false)
         {
-            if (GetTree().GetNodesInGroup("Enemies").Count == 1)
+            if (GetTree().GetNodesInGroup("Enemies").Count == 0)
             {
                 Console.WriteLine("STAGE CLEARED");
                 EnemyTimer.Stop();
@@ -145,8 +145,24 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
 
     public void Receive(SYSMessages.ProjectileHitsAlien message)
     {
-        EnemyTimer.WaitTime -= 0.03;
+        EnemyTimer.WaitTime -= 0.0155;
+        int alienToDelete = 0;
+
+        
+        foreach (Enemy alien in Aliens)
+        {
+            if (alien.GetRid() == message.enemyId)
+            {
+                break;
+            }
+            else
+            {
+                alienToDelete++;
+            }
+        }
+        Aliens.RemoveAt(alienToDelete);
         StageCleared();
+        
     }
     
     public void Receive(SYSMessages.EnemyTouchesBorder message)

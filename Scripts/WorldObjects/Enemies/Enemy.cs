@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using SpaceInvadersClone.Scripts;
 
@@ -37,9 +38,6 @@ public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAn
 
 	}
 
-	
-	
-	
 
 
 	public void Receive(SYSMessages.InvadersAnimation message)
@@ -59,16 +57,24 @@ public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAn
 	
 	}
 
-	public void Receive(SYSMessages.ProjectileHitsAlien message)
+	public async void Receive(SYSMessages.ProjectileHitsAlien message)
 	{
 		if (message.enemyId == GetRid())
 		{
+			RemoveFromGroup("Enemies");
+			MovementAnim.Play("boom");
+			await Wait(0.2f);
 			Console.WriteLine($"Alien shot: {Name}");
 			Console.WriteLine($"Enemies remaining: {GetTree().GetNodesInGroup("Enemies").Count}");
 			QueueFree();
 		}
 	}
 
+	public async Task Wait(float seconds)
+	{
+		var timer = GetTree().CreateTimer(seconds);
+		await ToSignal(timer, "timeout");
+	}
 
 }
 

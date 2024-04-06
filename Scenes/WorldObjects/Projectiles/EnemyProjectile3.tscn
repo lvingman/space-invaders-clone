@@ -51,5 +51,5 @@ texture_filter = 1
 scale = Vector2(10.5, 10.5)
 sprite_frames = SubResource("SpriteFrames_15kn7")
 frame = 2
-frame_progress = 0.467667
+frame_progress = 0.0498294
 speed_scale = 4.0

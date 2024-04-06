@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2xt50f5av0mu"]
+[gd_scene load_steps=8 format=3 uid="uid://d2xt50f5av0mu"]
 
 [ext_resource type="PackedScene" uid="uid://b8necs38uyv8o" path="res://Scenes/WorldObjects/Enemies/Crab.tscn" id="1_q7vxc"]
 [ext_resource type="PackedScene" uid="uid://dapdafc76a8nj" path="res://Scenes/WorldObjects/Player.tscn" id="2_sh1dd"]
@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://btqlu518ki4k3" path="res://Scenes/WorldObjects/Enemies/Squid.tscn" id="4_4gpy8"]
 [ext_resource type="PackedScene" uid="uid://b2btrks7gad4l" path="res://Scenes/WorldObjects/Enemies/EnemyLogistics.tscn" id="5_2pdpn"]
 [ext_resource type="PackedScene" uid="uid://b0u3d06y40td6" path="res://Scenes/UI/HUD.tscn" id="6_vviqn"]
+[ext_resource type="PackedScene" uid="uid://cwveaffrv2jpa" path="res://Scenes/WorldObjects/Defense.tscn" id="7_m3rlh"]
 
 [node name="MainStage" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_sh1dd")]
-position = Vector2(480, 537)
+position = Vector2(389, 550)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -5
@@ -22,121 +23,199 @@ metadata/_edit_lock_ = true
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Octopus" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(256, 216)
+position = Vector2(163, 261)
 
 [node name="Squid" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(256, 152)
+position = Vector2(163, 162)
 
 [node name="Crab2" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(296, 184)
+position = Vector2(203, 194)
 
 [node name="Octopus2" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(296, 216)
+position = Vector2(203, 261)
 
 [node name="Squid2" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(296, 152)
+position = Vector2(203, 162)
 
 [node name="Crab3" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(336, 184)
+position = Vector2(243, 194)
 
 [node name="Octopus3" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(336, 216)
+position = Vector2(243, 261)
 
 [node name="Squid3" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(336, 152)
+position = Vector2(243, 162)
 
 [node name="Crab4" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(376, 184)
+position = Vector2(283, 194)
 
 [node name="Octopus4" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(376, 216)
+position = Vector2(283, 261)
 
 [node name="Squid4" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(376, 152)
+position = Vector2(283, 162)
 
 [node name="Crab5" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(416, 184)
+position = Vector2(323, 194)
 
 [node name="Octopus5" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(416, 216)
+position = Vector2(323, 261)
 
 [node name="Squid5" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(416, 152)
+position = Vector2(323, 162)
 
 [node name="Crab6" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(456, 184)
+position = Vector2(363, 194)
 
 [node name="Octopus6" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(456, 216)
+position = Vector2(363, 261)
 
 [node name="Squid6" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(456, 152)
+position = Vector2(363, 162)
 
 [node name="Crab7" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(496, 184)
+position = Vector2(403, 194)
 
 [node name="Octopus7" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(496, 216)
+position = Vector2(403, 261)
 
 [node name="Squid7" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(496, 152)
+position = Vector2(403, 162)
 
 [node name="Crab8" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(536, 184)
+position = Vector2(443, 194)
 
 [node name="Octopus8" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(536, 216)
+position = Vector2(443, 261)
 
 [node name="Squid8" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(536, 152)
+position = Vector2(443, 162)
 
 [node name="Crab9" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(576, 184)
+position = Vector2(483, 194)
 
 [node name="Octopus9" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(576, 216)
+position = Vector2(483, 261)
 
 [node name="Squid9" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(576, 152)
+position = Vector2(483, 162)
 
 [node name="Crab10" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(616, 184)
+position = Vector2(523, 194)
 
 [node name="Octopus10" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(616, 216)
+position = Vector2(523, 261)
 
 [node name="Squid10" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(616, 152)
+position = Vector2(523, 162)
 
 [node name="Crab11" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(656, 184)
+position = Vector2(563, 194)
 
 [node name="Octopus11" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(656, 216)
+position = Vector2(563, 261)
 
 [node name="Squid11" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(656, 152)
+position = Vector2(563, 162)
 
 [node name="Crab12" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(696, 184)
+position = Vector2(603, 194)
 
 [node name="Octopus12" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(696, 216)
+position = Vector2(603, 261)
 
 [node name="Squid12" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(696, 152)
+position = Vector2(603, 162)
 
 [node name="Crab13" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(736, 184)
+position = Vector2(643, 194)
 
 [node name="Octopus13" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
-position = Vector2(736, 216)
+position = Vector2(643, 261)
+
+[node name="Octopus14" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(163, 293)
+
+[node name="Octopus15" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(203, 293)
+
+[node name="Octopus16" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(243, 293)
+
+[node name="Octopus17" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(283, 293)
+
+[node name="Octopus18" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(323, 293)
+
+[node name="Octopus19" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(363, 293)
+
+[node name="Octopus20" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(403, 293)
+
+[node name="Octopus21" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(443, 293)
+
+[node name="Octopus22" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(483, 293)
+
+[node name="Octopus23" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(523, 293)
+
+[node name="Octopus24" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(563, 293)
+
+[node name="Octopus25" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(603, 293)
+
+[node name="Octopus26" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_g4qgu")]
+position = Vector2(643, 293)
 
 [node name="Squid13" parent="Enemies" groups=["Enemies"] instance=ExtResource("4_4gpy8")]
-position = Vector2(736, 152)
+position = Vector2(643, 162)
 
 [node name="Crab" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
-position = Vector2(256, 184)
+position = Vector2(163, 194)
+
+[node name="Crab14" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(203, 227)
+
+[node name="Crab15" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(243, 227)
+
+[node name="Crab16" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(283, 227)
+
+[node name="Crab17" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(323, 227)
+
+[node name="Crab18" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(363, 227)
+
+[node name="Crab19" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(403, 227)
+
+[node name="Crab20" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(443, 227)
+
+[node name="Crab21" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(483, 227)
+
+[node name="Crab22" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(523, 227)
+
+[node name="Crab23" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(563, 227)
+
+[node name="Crab24" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(603, 227)
+
+[node name="Crab25" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(643, 227)
+
+[node name="Crab26" parent="Enemies" groups=["Enemies"] instance=ExtResource("1_q7vxc")]
+position = Vector2(163, 227)
 
 [node name="Logistics" type="Node2D" parent="."]
 
@@ -147,3 +226,18 @@ offset_left = -34.0
 offset_top = 11.0
 offset_right = -34.0
 offset_bottom = 11.0
+
+[node name="Defense" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Defense1" parent="Defense" instance=ExtResource("7_m3rlh")]
+position = Vector2(91, 234.5)
+
+[node name="Defense2" parent="Defense" instance=ExtResource("7_m3rlh")]
+position = Vector2(166.5, 234.5)
+
+[node name="Defense3" parent="Defense" instance=ExtResource("7_m3rlh")]
+position = Vector2(239, 234.5)
+
+[node name="Defense4" parent="Defense" instance=ExtResource("7_m3rlh")]
+position = Vector2(315.5, 234.5)

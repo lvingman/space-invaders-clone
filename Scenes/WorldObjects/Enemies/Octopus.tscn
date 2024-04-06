@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5gfc1abkbo7i"]
+[gd_scene load_steps=8 format=3 uid="uid://b5gfc1abkbo7i"]
 
 [ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="1_xdgj3"]
 [ext_resource type="Script" path="res://Scripts/WorldObjects/Enemies/Enemy.cs" id="2_y02g7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dggy5"]
 size = Vector2(30, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkw0o"]
+atlas = ExtResource("1_xdgj3")
+region = Rect2(55, 1, 16, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i67dp"]
 atlas = ExtResource("1_xdgj3")
@@ -16,6 +20,14 @@ region = Rect2(39, 11, 12, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d3ssf"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkw0o")
+}],
+"loop": true,
+"name": &"boom",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_i67dp")

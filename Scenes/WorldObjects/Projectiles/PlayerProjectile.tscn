@@ -33,4 +33,5 @@ texture_filter = 1
 scale = Vector2(10.5, 10.5)
 sprite_frames = SubResource("SpriteFrames_15kn7")
 
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

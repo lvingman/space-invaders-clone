@@ -58,6 +58,7 @@ public partial class Player : CharacterBody2D
 				GetTree().Root.GetNode("MainStage").AddChild(instance);
 				ProjectileShotSFX.Play();
 				ReloadTime.Start();
+				
 			}
 		}
 	}

@@ -8,4 +8,7 @@ public class SYSMessages
     public record ProjectileHitsAlien(Rid enemyId, int points);
 
     public record EnemyTouchesBorder(bool value);
+
+    public record ProjectileHitsDefenseBlock(Rid defenseBlockId, bool isPlayerProjectile);
+
 }

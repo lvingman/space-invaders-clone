@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8necs38uyv8o"]
+[gd_scene load_steps=8 format=3 uid="uid://b8necs38uyv8o"]
 
 [ext_resource type="Script" path="res://Scripts/WorldObjects/Enemies/Enemy.cs" id="1_eu80k"]
 [ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="2_glgyg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yu1xb"]
 size = Vector2(15, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfp2v"]
+atlas = ExtResource("2_glgyg")
+region = Rect2(55, 1, 16, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6bc58"]
 atlas = ExtResource("2_glgyg")
@@ -16,6 +20,14 @@ region = Rect2(22, 11, 11, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dmtfd"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfp2v")
+}],
+"loop": true,
+"name": &"boom",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6bc58")
@@ -41,5 +53,4 @@ position = Vector2(-1.43051e-06, 7.15256e-07)
 scale = Vector2(2.75, 2.75)
 sprite_frames = SubResource("SpriteFrames_dmtfd")
 animation = &"movement"
-frame_progress = 0.571628
 speed_scale = 0.0
