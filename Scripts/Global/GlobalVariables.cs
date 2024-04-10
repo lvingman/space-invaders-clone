@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Godot;
 
 namespace SpaceInvadersClone.Scripts.Global;
@@ -12,6 +13,10 @@ public class GlobalVariables
     public int Lives { get; set; }
     public int Score { get; set; }
     public int Round { get; set; }
+    public int HighScore { get; set; }
+    public string HighScorePath { get; set; }
+    public ConfigFile cfgFile { get; set; }
+    
 
     // Private constructor to prevent instantiation outside of this class.
     private GlobalVariables()
@@ -20,6 +25,8 @@ public class GlobalVariables
         Lives = 3;
         Score = 0;
         Round = 1;
+        HighScorePath = "res://SaveFiles/highScore.cfg";
+        cfgFile = new ConfigFile();
     }
 
     // Public accessor for the singleton instance
@@ -53,11 +60,27 @@ public partial class GlobalFunctions : Node
             }
             return instance;
         }
-    }   
+    }
 
     public async Task Wait(float seconds, Node contextNode)
     {
         var timer = contextNode.GetTree().CreateTimer(seconds);
         await ToSignal(timer, "timeout");
     }
+
+    public void SaveHighScore()
+    {
+        GlobalVariables.Instance.cfgFile.SetValue("High Score", "Test", GlobalVariables.Instance.HighScore);
+        GlobalVariables.Instance.cfgFile.Save(GlobalVariables.Instance.HighScorePath);
+    }
+
+    public int LoadHighScore()
+    {
+        GlobalVariables.Instance.cfgFile.Load(GlobalVariables.Instance.HighScorePath);
+        Variant test = GlobalVariables.Instance.cfgFile.GetValue("High Score", "Test");
+        GlobalVariables.Instance.HighScore = test.As<int>();
+        return GlobalVariables.Instance.HighScore;
+    }
+    
+    
 }
