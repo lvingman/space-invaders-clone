@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using SpaceInvadersClone.Scripts;
 
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, IRecipient<SYSMessages.ProjectileKilled>
 {
-	public Timer ReloadTime { get; set; }
+	public bool playerProyectileActive = false;
 	public AudioStreamPlayer ProjectileShotSFX { get; set; }
 	public AudioStreamPlayer DeathSFX { get; set; }
 	public const float Speed = 300.0f;
@@ -17,7 +17,6 @@ public partial class Player : CharacterBody2D
 
 		ProjectileShotSFX = (AudioStreamPlayer)GetNode("PlayerSFXs/ProjectileShot");
 		DeathSFX = (AudioStreamPlayer)GetNode("PlayerSFXs/Death");
-		ReloadTime = (Timer)GetNode("ReloadTime");
 
 	}
 
@@ -50,17 +49,36 @@ public partial class Player : CharacterBody2D
 	{
 		if (Input.IsActionJustPressed("fire"))
 		{
-			if (ReloadTime.TimeLeft == 0)
+			if (playerProyectileActive == false)
 			{
 				PackedScene projectile = ResourceLoader.Load("res://Scenes/WorldObjects/Projectiles/PlayerProjectile.tscn") as PackedScene;
 				Area2D instance = projectile.Instantiate<Area2D>();
 				instance.GlobalPosition = GlobalPosition + new Vector2(0,3);
-				GetTree().Root.GetNode("MainStage").AddChild(instance);
+				GetTree().Root.AddChild(instance);
 				ProjectileShotSFX.Play();
-				ReloadTime.Start();
-				
+				playerProyectileActive = true;
+
 			}
 		}
+	}
+
+	public void Receive(SYSMessages.ProjectileKilled message)
+	{
+		playerProyectileActive = false;
+	}
+	
+	//MVVM FUNCTIONS
+	public override void _EnterTree()   //Lets to listen messages from IRecipient and the type of message emmited
+	{
+		base._EnterTree();
+		StrongReferenceMessenger.Default.RegisterAll(this);
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+
+		StrongReferenceMessenger.Default.UnregisterAll(this); //Lets to unregister messages (For what idk)
 	}
 
 }

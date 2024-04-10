@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using SpaceInvadersClone.Scripts;
+using SpaceInvadersClone.Scripts.Global;
 
 public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAnimation>, IRecipient<SYSMessages.ProjectileHitsAlien>
 {
@@ -63,7 +64,7 @@ public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAn
 		{
 			RemoveFromGroup("Enemies");
 			MovementAnim.Play("boom");
-			await Wait(0.2f);
+			await GlobalFunctions.Instance.Wait(0.2f, this);
 			Console.WriteLine($"Alien shot: {Name}");
 			Console.WriteLine($"Enemies remaining: {GetTree().GetNodesInGroup("Enemies").Count}");
 			QueueFree();

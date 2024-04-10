@@ -11,4 +11,6 @@ public class SYSMessages
 
     public record ProjectileHitsDefenseBlock(Rid defenseBlockId, bool isPlayerProjectile);
 
+    public record ProjectileKilled(bool value);
+
 }

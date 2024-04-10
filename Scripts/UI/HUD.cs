@@ -31,8 +31,8 @@ public partial class HUD : Control, IRecipient<SYSMessages.ProjectileHitsAlien>
 		Score = (Label)GetNode("Score");
 		Round = (Label)GetNode("Round");
 
-		Score.Text = "SCORE \n" + (GlobalVariables.Score);
-		Round.Text = "ROUND \n" + (GlobalVariables.Round);
+		Score.Text = "SCORE \n" + (GlobalVariables.Instance.Score);
+		Round.Text = "ROUND \n" + (GlobalVariables.Instance.Round);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,7 +43,7 @@ public partial class HUD : Control, IRecipient<SYSMessages.ProjectileHitsAlien>
 	public void Receive(SYSMessages.ProjectileHitsAlien message)
 	{
 		Console.WriteLine("Score up");
-		GlobalVariables.Score += message.points;
-		Score.Text = "SCORE \n" + (GlobalVariables.Score);
+		GlobalVariables.Instance.Score += message.points;
+		Score.Text = "SCORE \n" + (GlobalVariables.Instance.Score);
 	}
 }
