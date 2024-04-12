@@ -298,3 +298,14 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRight"]
 shape = SubResource("RectangleShape2D_277mf")
+
+[connection signal="body_entered" from="TopLeftTriangle" to="TopLeftTriangle" method="OnBodyEntered"]
+[connection signal="body_entered" from="TopRightTriangle" to="TopRightTriangle" method="OnBodyEntered"]
+[connection signal="body_entered" from="BottomLeft" to="BottomLeft" method="OnBodyEntered"]
+[connection signal="body_entered" from="MiddleLeft" to="MiddleLeft" method="OnBodyEntered"]
+[connection signal="body_entered" from="MiddleRight" to="MiddleRight" method="OnBodyEntered"]
+[connection signal="body_entered" from="TopMiddleLeft" to="TopMiddleLeft" method="OnBodyEntered"]
+[connection signal="body_entered" from="TopMiddleRight" to="TopMiddleRight" method="OnBodyEntered"]
+[connection signal="body_entered" from="MiddleMiddleRight" to="MiddleMiddleRight" method="OnBodyEntered"]
+[connection signal="body_entered" from="MiddleMiddleLeft" to="MiddleMiddleLeft" method="OnBodyEntered"]
+[connection signal="body_entered" from="BottomRight" to="BottomRight" method="OnBodyEntered"]

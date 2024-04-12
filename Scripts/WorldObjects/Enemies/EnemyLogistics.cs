@@ -9,16 +9,20 @@ namespace SpaceInvadersClone.Scripts.WorldObjects.Enemies;
 using Godot;
 
 
-public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.ProjectileHitsAlien>, IRecipient<SYSMessages.EnemyTouchesBorder>
+public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.ProjectileHitsAlien>, IRecipient<SYSMessages.EnemyTouchesBorder>, IRecipient<SYSMessages.PlayerDied>,IRecipient<SYSMessages.ProjectileKilled>
 {
+    private static Random rand = new Random();
     private bool enemyProjectileActive = false;
     private int invadersLoop = 0;
     public ColorRect Loading { get; set; }
     public Timer ReloadStageTimer { get; set; }
+    
     public List<AudioStreamPlayer> InvadersMovement = new List<AudioStreamPlayer>();
 
     public AudioStreamPlayer InvaderKilled { get; set; }
+    
     public Timer EnemyTimer { get; set; }
+
     private static bool stageCleared = false;
     private List<Enemy> Aliens = new List<Enemy>();
     private bool goingRight = true;
@@ -54,6 +58,7 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
         Loading = (ColorRect)GetNode("Loading");
         InvaderKilled = (AudioStreamPlayer)GetNode("InvaderKilled");
         EnemyTimer = (Timer)GetNode("EnemyTimer");
+
         ReloadStageTimer = (Timer)GetNode("ReloadStageTimer");
         stageCleared = false;
         
@@ -72,21 +77,23 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
     public override void _Process(double delta)
     {
         base._Process(delta);
-        if (Input.IsActionJustPressed("reset"))
-        {
-            GetTree().ReloadCurrentScene();
-        }
 
         if (ReloadStageTimer.TimeLeft > 0 && ReloadStageTimer.TimeLeft < 0.1f)
         {
             Loading.Visible = true;
         }
+        EnemyFire();
     }
 
     private void OnReloadStageTimerTimeout()
     {
         GetTree().ReloadCurrentScene();
     }
+    
+    //Enemy Timers
+    /// <summary>
+    /// Makes the enemies move
+    /// </summary>
     private void OnEnemyTimerTimeout()
     {
 
@@ -108,6 +115,27 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
         EnemyMovement();
     }
 
+    /// <summary>
+    /// Makes the enemies shoot at the player
+    /// </summary>
+    private void EnemyFire()
+    {
+        if (Aliens.Any())
+        {
+            if (!enemyProjectileActive)
+            {
+                int r = rand.Next(Aliens.Count - 1);
+                PackedScene projectile = ResourceLoader.Load("res://Scenes/WorldObjects/Projectiles/EnemyProjectile1.tscn") as PackedScene;
+                Projectiles instance = projectile.Instantiate<Projectiles>();
+                instance.GlobalPosition = Aliens[r].GlobalPosition;
+                instance.isPlayerFire = false;
+                GetTree().Root.AddChild(instance);
+                enemyProjectileActive = true;
+            }
+            
+        }
+
+    }
     
     private void EnemyMovement()
     {
@@ -214,6 +242,23 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
         goingDown = true;
         goingRight = message.value;
     }
-    
-    
+
+
+    public async void Receive(SYSMessages.PlayerDied message)
+    {
+        await GlobalFunctions.Instance.Wait(1,this);
+        var scene = GD.Load<PackedScene>("res://Scenes/WorldObjects/Player.tscn");
+        CharacterBody2D instance = (CharacterBody2D)scene.Instantiate();
+        instance.GlobalPosition = message.playerPosition;
+        GetTree().Root.GetNode("MainStage").AddChild(instance);
+        GlobalVariables.Instance.Lives--;
+    }
+
+    public void Receive(SYSMessages.ProjectileKilled message)
+    {
+        if (!message.isPlayerProjectile)
+        {
+           enemyProjectileActive = false;
+        }
+    }
 }

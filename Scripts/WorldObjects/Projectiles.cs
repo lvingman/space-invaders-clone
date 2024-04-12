@@ -10,11 +10,14 @@ public partial class Projectiles : Area2D
 {
 
 	[Export]
-	public bool isPlayerFire { get; set; } = true;
+	public bool isPlayerFire { get; set; } 
+	public AnimatedSprite2D BulletSprite { get; set; }
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		BulletSprite = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
+		BulletSprite.Play();
 	}
 
 
@@ -29,11 +32,12 @@ public partial class Projectiles : Area2D
 		}
 		else
 		{
-			GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + 10);
+			GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + 5);
 		}
 
-		if (GlobalPosition.Y < 0)
+		if (GlobalPosition.Y < 0 || GlobalPosition.Y > GetViewportRect().Size.Y)
 		{
+			Console.WriteLine("Bullet deleted");
 			DeleteProjectile();
 		}
 	}
@@ -45,7 +49,7 @@ public partial class Projectiles : Area2D
 	}
 	public void OnBodyEntered(Node2D body)
 	{
-		if (body is CharacterBody2D alien && alien.Name != "Player")
+		if (body is CharacterBody2D alien && alien.Name != "Player" && isPlayerFire)
 		{
 			if (alien.Name.ToString().Contains("Octopus"))
 			{
@@ -64,12 +68,18 @@ public partial class Projectiles : Area2D
 			}
 			
 		}
+		else if (body is CharacterBody2D player && player.Name == "Player" && !isPlayerFire)
+		{
+			Console.WriteLine("ENEMY BULLET TOUCHES PLAYER");
+			StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileHitsPlayer>();
+			DeleteProjectile();
+		}
 		
 	}
 
 	public void DeleteProjectile()
 	{
-		StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileKilled>(new (true));
+		StrongReferenceMessenger.Default.Send<SYSMessages.ProjectileKilled>(new (isPlayerFire));
 		QueueFree();
 	}
 	

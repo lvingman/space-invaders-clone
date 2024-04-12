@@ -17,7 +17,7 @@ color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_sh1dd")]
-position = Vector2(389, 550)
+position = Vector2(389, 534)
 
 [node name="Enemies" type="Node2D" parent="."]
 
@@ -221,22 +221,18 @@ position = Vector2(163, 227)
 [node name="EnemyLogistics" parent="Logistics" instance=ExtResource("5_2pdpn")]
 
 [node name="Hud" parent="Logistics" instance=ExtResource("6_vviqn")]
-offset_left = -34.0
-offset_top = 11.0
-offset_right = -34.0
-offset_bottom = 11.0
 
 [node name="Defense" type="Node2D" parent="."]
 scale = Vector2(2, 2)
 
 [node name="Defense1" parent="Defense" instance=ExtResource("7_m3rlh")]
-position = Vector2(91, 234.5)
+position = Vector2(91, 237)
 
 [node name="Defense2" parent="Defense" instance=ExtResource("7_m3rlh")]
-position = Vector2(166.5, 234.5)
+position = Vector2(166.5, 237)
 
 [node name="Defense3" parent="Defense" instance=ExtResource("7_m3rlh")]
-position = Vector2(239, 234.5)
+position = Vector2(239, 237)
 
 [node name="Defense4" parent="Defense" instance=ExtResource("7_m3rlh")]
-position = Vector2(315.5, 234.5)
+position = Vector2(315.5, 237)

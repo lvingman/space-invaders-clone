@@ -92,6 +92,14 @@ public partial class DefenseBlock : Area2D, IRecipient<SYSMessages.ProjectileHit
 	{
 	}
 
+	public void OnBodyEntered(Node2D thing)
+	{
+		if (thing is Enemy)
+		{
+			QueueFree();
+		}
+	}
+	
 	public void Receive(SYSMessages.ProjectileHitsDefenseBlock message)
 	{
 		if (message.defenseBlockId == GetRid())

@@ -47,15 +47,10 @@ public partial class Enemy : CharacterBody2D,  IRecipient<SYSMessages.InvadersAn
 		{
 			// Reset to the first frame to loop the animation
 			MovementAnim.Frame = 0;
-			Console.WriteLine("Animation 0");
 			return;
 		}
-		
 		MovementAnim.Frame += 1;
-		Console.WriteLine("Animation 1");
-
 		// Check if we reached the end of the animation
-	
 	}
 
 	public async void Receive(SYSMessages.ProjectileHitsAlien message)

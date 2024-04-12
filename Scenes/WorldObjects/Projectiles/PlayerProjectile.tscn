@@ -21,7 +21,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="PlayerProjectile" type="Area2D"]
+[node name="Projectile" type="Area2D"]
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_t4hvx")
 

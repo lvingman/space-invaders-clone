@@ -2,11 +2,14 @@ using CommunityToolkit.Mvvm.Messaging;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SpaceInvadersClone.Scripts;
+using SpaceInvadersClone.Scripts.Global;
 
-public partial class Player : CharacterBody2D, IRecipient<SYSMessages.ProjectileKilled>
+public partial class Player : CharacterBody2D, IRecipient<SYSMessages.ProjectileKilled>, IRecipient<SYSMessages.ProjectileHitsPlayer>
 {
 	public bool playerProyectileActive = false;
+	public AnimatedSprite2D PlayerAnims { get; set; }
 	public AudioStreamPlayer ProjectileShotSFX { get; set; }
 	public AudioStreamPlayer DeathSFX { get; set; }
 	public const float Speed = 300.0f;
@@ -15,6 +18,7 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 	{
 		base._Ready();
 
+		PlayerAnims = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
 		ProjectileShotSFX = (AudioStreamPlayer)GetNode("PlayerSFXs/ProjectileShot");
 		DeathSFX = (AudioStreamPlayer)GetNode("PlayerSFXs/Death");
 
@@ -22,28 +26,55 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
-
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("left", "right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		if (PlayerAnims.Animation != "death")
 		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
+			Vector2 velocity = Velocity;
 
-		Velocity = velocity;
-		MoveAndSlide();
+			// Get the input direction and handle the movement/deceleration.
+			// As good practice, you should replace UI actions with custom gameplay actions.
+			Vector2 direction = Input.GetVector("left", "right", "ui_up", "ui_down");
+			if (direction != Vector2.Zero)
+			{
+				velocity.X = direction.X * Speed;
+			}
+			else
+			{
+				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			}
+
+			Velocity = velocity;
+
+			var collision = MoveAndCollide(velocity * (float)delta);
+			
+			//Checking for firing projectiles
+			PlayerFire();
+			
+			//Check if enemy touches player
+			if (collision != null)
+			{
+				if (collision.GetCollider() is Enemy enemy)
+				{
+					PlayerDeath();
+				}
+			}
+			
+			if (Input.IsActionJustPressed("reset"))
+			{
+				PlayerDeath();
+			}
+			
+		}
 		
-		//Checking for firing projectiles
-		PlayerFire();
 	}
-	
 
+	private async void PlayerDeath()
+	{
+		PlayerAnims.Play("death");
+		DeathSFX.Play();
+		await GlobalFunctions.Instance.Wait(1.5f,this);
+		StrongReferenceMessenger.Default.Send<SYSMessages.PlayerDied>(new(GlobalPosition));
+		QueueFree();
+	}
 
 	private void PlayerFire()
 	{
@@ -52,8 +83,9 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 			if (playerProyectileActive == false)
 			{
 				PackedScene projectile = ResourceLoader.Load("res://Scenes/WorldObjects/Projectiles/PlayerProjectile.tscn") as PackedScene;
-				Area2D instance = projectile.Instantiate<Area2D>();
+				Projectiles instance = projectile.Instantiate<Projectiles>();
 				instance.GlobalPosition = GlobalPosition + new Vector2(0,3);
+				instance.isPlayerFire = true;
 				GetTree().Root.AddChild(instance);
 				ProjectileShotSFX.Play();
 				playerProyectileActive = true;
@@ -64,7 +96,10 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 
 	public void Receive(SYSMessages.ProjectileKilled message)
 	{
-		playerProyectileActive = false;
+		if (message.isPlayerProjectile)
+		{
+			playerProyectileActive = false;
+		}
 	}
 	
 	//MVVM FUNCTIONS
@@ -81,4 +116,8 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 		StrongReferenceMessenger.Default.UnregisterAll(this); //Lets to unregister messages (For what idk)
 	}
 
+	public void Receive(SYSMessages.ProjectileHitsPlayer message)
+	{
+		PlayerDeath();
+	}
 }

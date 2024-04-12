@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dapdafc76a8nj"]
+[gd_scene load_steps=10 format=3 uid="uid://dapdafc76a8nj"]
 
 [ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="1_qsiso"]
 [ext_resource type="Script" path="res://Scripts/WorldObjects/Player.cs" id="1_ss3xf"]
@@ -8,12 +8,31 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5njf5"]
 size = Vector2(38, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltxyw"]
+atlas = ExtResource("1_qsiso")
+region = Rect2(19, 49, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81o65"]
+atlas = ExtResource("1_qsiso")
+region = Rect2(37, 49, 16, 8)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_170ng"]
 atlas = ExtResource("1_qsiso")
 region = Rect2(3, 49, 13, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a0w4q"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltxyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81o65")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_170ng")

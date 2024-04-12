@@ -7,10 +7,14 @@ public class SYSMessages
 
     public record ProjectileHitsAlien(Rid enemyId, int points);
 
+    public record ProjectileHitsPlayer();
+
     public record EnemyTouchesBorder(bool value);
 
     public record ProjectileHitsDefenseBlock(Rid defenseBlockId, bool isPlayerProjectile);
 
-    public record ProjectileKilled(bool value);
+    public record ProjectileKilled(bool isPlayerProjectile);
+
+    public record PlayerDied(Vector2 playerPosition);
 
 }

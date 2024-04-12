@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddt2yh330jek8"]
+[gd_scene load_steps=9 format=3 uid="uid://ddt2yh330jek8"]
 
 [ext_resource type="Texture2D" uid="uid://47xwhesrl2s7" path="res://Assets/Sprites/ArcadeSpriteSheet.png" id="1_mp61q"]
+[ext_resource type="Script" path="res://Scripts/WorldObjects/Projectiles.cs" id="1_q3k0w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pniig"]
 size = Vector2(30, 72)
@@ -41,7 +42,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="EnemyProjectile1" type="Area2D"]
+[node name="Projectile" type="Area2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_q3k0w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pniig")
@@ -50,5 +53,8 @@ shape = SubResource("RectangleShape2D_pniig")
 texture_filter = 1
 scale = Vector2(10.5, 10.5)
 sprite_frames = SubResource("SpriteFrames_15kn7")
-frame_progress = 0.877973
-speed_scale = 4.0
+frame_progress = 0.2625
+speed_scale = 20.0
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
