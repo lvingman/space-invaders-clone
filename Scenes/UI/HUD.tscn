@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0u3d06y40td6"]
+[gd_scene load_steps=10 format=3 uid="uid://b0u3d06y40td6"]
 
 [ext_resource type="FontFile" uid="uid://d2g5un2a6gijm" path="res://Assets/Fonts/Pixel_NES.otf" id="1_giuam"]
 [ext_resource type="Script" path="res://Scripts/UI/HUD.cs" id="1_gxjto"]
 [ext_resource type="Texture2D" uid="uid://duujmcoq6uuoq" path="res://Assets/Sprites/Spritesheet.png" id="3_dti4o"]
+[ext_resource type="AudioStream" uid="uid://bpg14hyb34wr0" path="res://Assets/SFX/pause.mp3" id="4_xuekx"]
+[ext_resource type="AudioStream" uid="uid://bnello0qvglln" path="res://Assets/Music/GameOver.wav" id="5_67j26"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_d2xsm"]
 font = ExtResource("1_giuam")
@@ -16,7 +18,12 @@ font_size = 25
 atlas = ExtResource("3_dti4o")
 region = Rect2(112, 63, 16, 8)
 
+[sub_resource type="LabelSettings" id="LabelSettings_0qijn"]
+font = ExtResource("1_giuam")
+font_size = 74
+
 [node name="Hud" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,3 +76,45 @@ offset_top = 571.0
 offset_right = 55.0
 offset_bottom = 586.0
 texture = SubResource("AtlasTexture_ufgtm")
+
+[node name="PauseSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xuekx")
+
+[node name="Invisible" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pause" type="Label" parent="Invisible"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 329.0
+offset_top = 103.0
+offset_right = 462.0
+offset_bottom = 138.0
+text = "PAUSE	"
+label_settings = SubResource("LabelSettings_d2xsm")
+horizontal_alignment = 1
+
+[node name="GameOverScreen" type="ColorRect" parent="."]
+visible = false
+z_index = 3
+layout_mode = 0
+offset_top = 105.0
+offset_right = 804.0
+offset_bottom = 605.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="GameOverScreen"]
+z_index = 3
+layout_mode = 0
+offset_left = 162.0
+offset_top = 204.0
+offset_right = 670.0
+offset_bottom = 292.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_0qijn")
+
+[node name="GameOverTheme" type="AudioStreamPlayer" parent="GameOverScreen"]
+stream = ExtResource("5_67j26")

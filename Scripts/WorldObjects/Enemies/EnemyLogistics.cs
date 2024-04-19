@@ -13,6 +13,7 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
 {
     private static Random rand = new Random();
     private bool enemyProjectileActive = false;
+    private bool canEnemyFire = true;
     private int invadersLoop = 0;
     public ColorRect Loading { get; set; }
     public Timer ReloadStageTimer { get; set; }
@@ -96,14 +97,8 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
     /// </summary>
     private void OnEnemyTimerTimeout()
     {
-
         StrongReferenceMessenger.Default.Send<SYSMessages.InvadersAnimation>(new(true));
-        
-       
-
         InvadersMovement[invadersLoop].Play();
-  
-        
         if (invadersLoop == 3)
         {
             invadersLoop = 0;
@@ -120,17 +115,21 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
     /// </summary>
     private void EnemyFire()
     {
-        if (Aliens.Any())
+        if (canEnemyFire)
         {
-            if (!enemyProjectileActive)
+            if (Aliens.Any())
             {
-                int r = rand.Next(Aliens.Count - 1);
-                PackedScene projectile = ResourceLoader.Load("res://Scenes/WorldObjects/Projectiles/EnemyProjectile1.tscn") as PackedScene;
-                Projectiles instance = projectile.Instantiate<Projectiles>();
-                instance.GlobalPosition = Aliens[r].GlobalPosition;
-                instance.isPlayerFire = false;
-                GetTree().Root.AddChild(instance);
-                enemyProjectileActive = true;
+                if (!enemyProjectileActive)
+                {
+                    int r = rand.Next(Aliens.Count - 1);
+                    PackedScene projectile = ResourceLoader.Load("res://Scenes/WorldObjects/Projectiles/EnemyProjectile1.tscn") as PackedScene;
+                    Projectiles instance = projectile.Instantiate<Projectiles>();
+                    instance.GlobalPosition = Aliens[r].GlobalPosition;
+                    instance.isPlayerFire = false;
+                    GetTree().Root.AddChild(instance);
+                    enemyProjectileActive = true;
+                }
+                
             }
             
         }
@@ -246,12 +245,20 @@ public partial class EnemyLogistics : Node2D,  IRecipient<SYSMessages.Projectile
 
     public async void Receive(SYSMessages.PlayerDied message)
     {
-        await GlobalFunctions.Instance.Wait(1,this);
+        EnemyTimer.Stop();
+        canEnemyFire = false;
+        await GlobalFunctions.Instance.Wait(3,this);
         var scene = GD.Load<PackedScene>("res://Scenes/WorldObjects/Player.tscn");
         CharacterBody2D instance = (CharacterBody2D)scene.Instantiate();
         instance.GlobalPosition = message.playerPosition;
         GetTree().Root.GetNode("MainStage").AddChild(instance);
         GlobalVariables.Instance.Lives--;
+        if (message.collision != null)
+        {
+            GetTree().ReloadCurrentScene();
+        }
+        EnemyTimer.Start();
+        canEnemyFire = true;
     }
 
     public void Receive(SYSMessages.ProjectileKilled message)

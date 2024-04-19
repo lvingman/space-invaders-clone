@@ -1,3 +1,74 @@
-[gd_scene format=3 uid="uid://dtj1mlaruu0m7"]
+[gd_scene load_steps=10 format=3 uid="uid://dtj1mlaruu0m7"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Script" path="res://Scripts/TitleScreen.cs" id="1_3t7oe"]
+[ext_resource type="PackedScene" uid="uid://btqlu518ki4k3" path="res://Scenes/WorldObjects/Enemies/Squid.tscn" id="1_im5ef"]
+[ext_resource type="PackedScene" uid="uid://b5gfc1abkbo7i" path="res://Scenes/WorldObjects/Enemies/Octopus.tscn" id="2_xgqcr"]
+[ext_resource type="PackedScene" uid="uid://b8necs38uyv8o" path="res://Scenes/WorldObjects/Enemies/Crab.tscn" id="3_450oa"]
+[ext_resource type="FontFile" uid="uid://d2g5un2a6gijm" path="res://Assets/Fonts/Pixel_NES.otf" id="4_mma6k"]
+[ext_resource type="AudioStream" uid="uid://congmcks2wp7t" path="res://Assets/Music/TitleScreen.wav" id="5_o86eh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_acs4d"]
+font = ExtResource("4_mma6k")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_u3hou"]
+font = ExtResource("4_mma6k")
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_pfri5"]
+font = ExtResource("4_mma6k")
+font_size = 21
+font_color = Color(0, 0.756863, 0, 1)
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_3t7oe")
+
+[node name="Squid" parent="." instance=ExtResource("1_im5ef")]
+z_index = 1
+position = Vector2(512, 192)
+
+[node name="Octopus" parent="." instance=ExtResource("2_xgqcr")]
+z_index = 1
+position = Vector2(384, 192)
+
+[node name="Crab" parent="." instance=ExtResource("3_450oa")]
+z_index = 1
+position = Vector2(256, 192)
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 804.0
+offset_bottom = 603.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="."]
+texture_filter = 1
+offset_left = 190.0
+offset_top = 78.0
+offset_right = 642.0
+offset_bottom = 114.0
+text = "SPACE INVADERS CLONE"
+label_settings = SubResource("LabelSettings_acs4d")
+
+[node name="HighScore" type="Label" parent="."]
+texture_filter = 1
+offset_left = 263.0
+offset_top = 286.0
+offset_right = 540.0
+offset_bottom = 318.0
+text = "HIGHEST SCORE: "
+label_settings = SubResource("LabelSettings_u3hou")
+horizontal_alignment = 1
+
+[node name="Start" type="Label" parent="."]
+texture_filter = 1
+offset_left = 252.0
+offset_top = 469.0
+offset_right = 547.0
+offset_bottom = 495.0
+text = "PUSH [ENTER] TO PLAY!"
+label_settings = SubResource("LabelSettings_pfri5")
+
+[node name="TitleTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_o86eh")
+volume_db = -10.978

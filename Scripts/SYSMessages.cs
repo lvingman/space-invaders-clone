@@ -15,6 +15,6 @@ public class SYSMessages
 
     public record ProjectileKilled(bool isPlayerProjectile);
 
-    public record PlayerDied(Vector2 playerPosition);
+    public record PlayerDied(Vector2 playerPosition, KinematicCollision2D collision = null);
 
 }

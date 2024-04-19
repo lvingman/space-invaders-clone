@@ -10,8 +10,13 @@ public partial class HUD : Control, IRecipient<SYSMessages.ProjectileHitsAlien>
 {
 	public Label Score { get; set; }
 	public Label Round { get; set; }
+	public Label Pause { get; set; }
 	public Label HighScore { get; set; }
 	public List<TextureRect> Lives = new List<TextureRect>();
+	public ColorRect GameOverScreen { get; set; }
+	public AudioStreamPlayer GameOverTheme { get; set; }
+	public AudioStreamPlayer PauseSFX { get; set; }
+	private bool gameOver = false;
 	
 	public override void _EnterTree()   //Lets to listen messages from IRecipient and the type of message emmited
 	{
@@ -27,6 +32,17 @@ public partial class HUD : Control, IRecipient<SYSMessages.ProjectileHitsAlien>
 		StrongReferenceMessenger.Default.UnregisterAll(this); //Lets to unregister messages (For what idk)
 	}
 
+	private void PauseGame()
+	{
+		if (GetTree().Paused == false)
+		{
+			PauseSFX.Play();
+		}
+		GetTree().Paused = !GetTree().Paused;
+		Pause.Visible = !Pause.Visible;
+		
+	}
+
 	
 	
 	// Called when the node enters the scene tree for the first time.
@@ -34,7 +50,11 @@ public partial class HUD : Control, IRecipient<SYSMessages.ProjectileHitsAlien>
 	{
 		Score = (Label)GetNode("Score");
 		Round = (Label)GetNode("Round");
+		Pause = (Label)GetNode("Invisible/Pause");
 		HighScore = (Label)GetNode("HighScore");
+		PauseSFX = (AudioStreamPlayer)GetNode("PauseSFX");
+		GameOverScreen = (ColorRect)GetNode("GameOverScreen");
+		GameOverTheme = (AudioStreamPlayer)GetNode("GameOverScreen/GameOverTheme");
 
 		TextureRect originalLife = GetNode<TextureRect>("Life"); // Make sure the node path is correct
 		if (originalLife == null)
@@ -66,14 +86,46 @@ public partial class HUD : Control, IRecipient<SYSMessages.ProjectileHitsAlien>
 	{
 		UpdateHighScore();
 		RemoveLives();
+		if (Input.IsActionJustPressed("pause"))
+		{
+			PauseGame();
+		}
+
+		if (gameOver)
+		{
+			GameOver();
+		}
+		if (GlobalVariables.Instance.Lives < 0)
+		{
+			GameOverScreen.Visible = true;
+			gameOver = true;
+		}
+
+
 	}
 
 	private void RemoveLives()
 	{
-		if (Lives.Count > GlobalVariables.Instance.Lives)
+		if (Lives.Count > GlobalVariables.Instance.Lives && GlobalVariables.Instance.Lives >= 0)
 		{
 			Lives[Lives.Count - 1].QueueFree();
 			Lives.RemoveAt(Lives.Count - 1);
+		}
+	}
+
+	private void GameOver()
+	{
+		GetTree().Paused = true;
+		GameOverTheme.Play();
+		while (GameOverTheme.Playing)
+		{
+			//Does nothing
+		}
+
+		{
+			GetTree().Paused = false;
+			PackedScene titleScreen = GD.Load<PackedScene>("res://Scenes/TitleScreen.tscn");
+			GetTree().ChangeSceneToPacked(titleScreen);
 		}
 	}
 	

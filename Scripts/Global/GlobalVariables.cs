@@ -29,6 +29,13 @@ public class GlobalVariables
         cfgFile = new ConfigFile();
     }
 
+    public void ResetVariables()
+    {
+        Lives = 3;
+        Score = 0;
+        Round = 1;
+    }
+
     // Public accessor for the singleton instance
     public static GlobalVariables Instance
     {

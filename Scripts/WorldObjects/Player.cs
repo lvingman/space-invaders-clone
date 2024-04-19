@@ -13,6 +13,7 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 	public AudioStreamPlayer ProjectileShotSFX { get; set; }
 	public AudioStreamPlayer DeathSFX { get; set; }
 	public const float Speed = 300.0f;
+	public bool isKillable = true;
 
 	public override void _Ready()
 	{
@@ -54,26 +55,26 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 			{
 				if (collision.GetCollider() is Enemy enemy)
 				{
-					PlayerDeath();
+					PlayerDeath(collision);
+				
 				}
 			}
 			
-			if (Input.IsActionJustPressed("reset"))
-			{
-				PlayerDeath();
-			}
+
 			
 		}
 		
 	}
 
-	private async void PlayerDeath()
+	private async void PlayerDeath(KinematicCollision2D collider = null)
 	{
+		isKillable = false;
+		StrongReferenceMessenger.Default.Send<SYSMessages.PlayerDied>(new(GlobalPosition, collider));
 		PlayerAnims.Play("death");
 		DeathSFX.Play();
 		await GlobalFunctions.Instance.Wait(1.5f,this);
-		StrongReferenceMessenger.Default.Send<SYSMessages.PlayerDied>(new(GlobalPosition));
 		QueueFree();
+		
 	}
 
 	private void PlayerFire()
@@ -118,6 +119,9 @@ public partial class Player : CharacterBody2D, IRecipient<SYSMessages.Projectile
 
 	public void Receive(SYSMessages.ProjectileHitsPlayer message)
 	{
-		PlayerDeath();
+		if (isKillable)
+		{
+			PlayerDeath();
+		}
 	}
 }
